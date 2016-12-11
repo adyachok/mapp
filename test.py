@@ -1,9 +1,9 @@
 import time
 import unittest
 
-from calculator import Calculator
-from share import Order, OrderException, OrderHistory, PreferredShare, Share
-from share_repo import ShareRepository
+from stock.calculator import Calculator
+from stock.share import Order, OrderException, OrderHistory, PreferredShare, Share
+from stock.share_repo import ShareRepository
 
 
 class TestShareRepository(unittest.TestCase):

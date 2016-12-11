@@ -1,8 +1,8 @@
 from tabulate import tabulate
 
-from calculator import Calculator as calc
 from generator import RandDataGenerator
-from share_repo import ShareRepository
+from stock.calculator import Calculator as calc
+from stock.share_repo import ShareRepository
 
 
 def print_result(data, headers):

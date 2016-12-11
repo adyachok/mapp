@@ -13,4 +13,18 @@ Application calculates for a given stock:
 
 Domain Design
 ==============
-(img/domain schema.png)
+
+The sense of the stock domain is share and order, such that we have to depict this
+objects in our architecture. **Share** has **Orders** indirectly through OrderHistory.
+
+Class **Share** is a base class. For calculation provided also child class of Share -
+**PreferredShare**. Every share class can maintain own specific logic to calculate
+ratios.
+
+For an instantiation of **Share** and managing it, we have class **StockRepository**. This 
+class creates unique object per every share name.
+
+For calculation of ratios created class **Calculator**. Class **Calculator** provides
+static methods for calculation described upper ratios.
+
+![Domain schema](docs/img/domain-schema.png)
