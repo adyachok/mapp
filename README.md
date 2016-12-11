@@ -13,3 +13,4 @@ Application calculates for a given stock:
 
 Domain Design
 ==============
+(img/domain schema.png)
