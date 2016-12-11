@@ -29,7 +29,7 @@ class ShareRepository(object):
         return self._factory(name, *args)
 
     def __iter__(self):
-        yield self.repo.itervalues()
+        return self.repo.itervalues()
 
     def __len__(self):
         return len(self.repo)

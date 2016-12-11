@@ -45,8 +45,8 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(o.indicator, 'sell')
         self.assertEqual(o.price, 100.31)
         self.assertEqual(o.timestamp,
-                         time.strptime("2016-2-3 10:11:12",
-                                       "%Y-%m-%d %H:%M:%S"))
+                         time.mktime(time.strptime("2016-2-3 10:11:12",
+                                                   "%Y-%m-%d %H:%M:%S")))
 
     def test_wrong_indicator(self):
         with self.assertRaises(OrderException):
@@ -126,6 +126,18 @@ class TestCalculator(unittest.TestCase):
         s = PreferredShare('gld', 100, 10)
         s.set_order(100, 'buy', 200)
         self.assertEqual(Calculator.get_PE_ratio(s), 20.0)
+
+    def test_volume_weighted_stock_price_only_one(self):
+        s = Share('gld')
+        fixtures = [(100, 'buy', 10, "2016-2-3 10:11:12"),
+                    (100, 'buy', 12, "2016-2-3 11:11:12"),
+                    (100, 'buy', 11, "2016-2-3 12:11:12"),
+                    (100, 'buy', 15, "2016-2-3 13:11:12"),
+                    (100, 'buy', 14, "2016-2-3 14:11:12"),
+                    (100, 'buy', 9, "2016-2-3 15:11:12")]
+        for o in fixtures:
+            s.set_order(*o)
+        self.assertEqual(Calculator.get_volume_weighted_stock_price(s), 9)
 
 
 class TestOrderHistory(unittest.TestCase):

@@ -35,7 +35,7 @@ class Share(object):
 
     def get_volume_weighted_stock_price(self):
         last_o = self._history[-1]
-        end_period = time.mktime(last_o.timestamp)
+        end_period = last_o.timestamp
         start_period = end_period - VOLUME_WEIGHTED_STOCK_TIME_SPAN
         orders = self._history.get_orders(from_time=start_period)
         quantity = 0
@@ -44,7 +44,6 @@ class Share(object):
             price_quantity += order.price * order.quantity
             quantity += order.quantity
         return round(float(price_quantity) / quantity, 4)
-
 
 
 class PreferredShare(Share):
@@ -59,7 +58,7 @@ class PreferredShare(Share):
         last_price = self.get_last_price()
         if dividend is None:
             dividend = float(self.dividend_par_val) / 100 * self.par_value
-        return round(dividend / last_price, 4)
+        return round(float(dividend) / last_price, 4)
 
 
 class Order(object):
@@ -102,7 +101,7 @@ class Order(object):
             timestamp = time.time()
         else:
             if isinstance(timestamp, str):
-                timestamp = convert_timestamp(timestamp)
+                timestamp = time.mktime(convert_timestamp(timestamp))
         return timestamp
 
 
@@ -134,7 +133,7 @@ class OrderHistory(object):
             return self._history[:last_index]
         elif to_time is None:
             first_index = self._get_el_index(from_time, 'left')
-            return self._history[first_index + 1:]
+            return self._history[first_index:]
         else:
             first_index = self._get_el_index(from_time, 'left')
             last_index = self._get_el_index(to_time, 'right')
@@ -150,6 +149,7 @@ class OrderHistory(object):
 
     def _check_el_index(self, idx):
         return idx if idx < len(self) else len(self) - 1
+
 
 def convert_timestamp(timestamp):
     try:
