@@ -4,11 +4,12 @@ Description
 ============
 
 Application calculates for a given stock:
-⋅⋅⋅ * Dividend yield
-⋅⋅⋅ * P/E ratio
-⋅⋅⋅ * Records trade with timestamp, quantity of shares, buy & sell indicator and trade price.
-⋅⋅⋅ * Volume Weighted Stock Price based on trades in past 15 minutes
-⋅⋅⋅ * GBCE of all shares using geometric mean of all prices for all stocks
+
+1. Dividend yield
+2. P/E ratio
+3. Records trade with timestamp, quantity of shares, buy & sell indicator and trade price.
+4. Volume Weighted Stock Price based on trades in past 15 minutes
+5. GBCE of all shares using geometric mean of all prices for all stocks
 
 
 Domain Design
